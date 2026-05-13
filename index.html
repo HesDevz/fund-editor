@@ -110,6 +110,8 @@
     <h1>📝 点击任意文字直接编辑 · 改完截图或导出即可</h1>
     <div class="btns">
       <button class="btn-hint">💡 点击文字即可编辑</button>
+      <button onclick="exportAll()" style="background:#667eea;color:#fff">📋 导出全文</button>
+      <button onclick="copyAll()" style="background:#27ae60;color:#fff">📑 复制到剪贴板</button>
     </div>
   </div>
 
@@ -385,6 +387,60 @@ function checkPw() {
   }
 }
 document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPw(); });
+
+function exportAll() {
+  var ed = document.getElementById('main');
+  var clone = ed.cloneNode(true);
+  // Remove topbar
+  var tb = clone.querySelector('.topbar');
+  if (tb) tb.remove();
+  // Remove contenteditable
+  clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+  // Remove edit hover styles
+  var style = clone.querySelector('style');
+  // Get full HTML
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title>' +
+    document.querySelector('style').outerHTML +
+    '</head><body>' + clone.outerHTML + '</body></html>';
+  // Download as file
+  var blob = new Blob([html], {type:'text/html'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '五级基金方案-编辑版.html';
+  a.click();
+  showToast('✅ 文件已下载');
+}
+
+function copyAll() {
+  var ed = document.getElementById('main');
+  // Extract plain text from all sections
+  var sections = ed.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line');
+  var text = '关于加快构建五级基金体系\n长春市光电信息重大项目产业投资基金架构与实施路径\n\n';
+  sections.forEach(function(sec) {
+    var t = sec.innerText.trim();
+    if (t) text += t + '\n\n';
+  });
+  navigator.clipboard.writeText(text).then(function(){
+    showToast('✅ 已复制到剪贴板，可直接粘贴发给我');
+  }).catch(function(){
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✅ 已复制到剪贴板');
+  });
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(function(){ t.style.display = 'none'; }, 2500);
+}
 </script>
+
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;display:none;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2)"></div>
+
 </body>
 </html>
