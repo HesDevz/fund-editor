@@ -337,10 +337,17 @@ function checkPw() {
   if (pw === 'tfjj') {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('main').style.display = 'block';
+    enableEdit();
   } else {
     document.getElementById('pw-err').style.display = 'block';
     setTimeout(function(){ document.getElementById('pw-err').style.display = 'none'; }, 2000);
   }
+}
+function enableEdit() {
+  var main = document.getElementById('main');
+  main.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line, h1, h2, h3, p, li, .flow-label, .arrow').forEach(function(el) {
+    el.contentEditable = 'true';
+  });
 }
 document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPw(); });
 function exportAll() {
