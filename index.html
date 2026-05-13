@@ -1,161 +1,216 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title><style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #f8f9fb; color: #1a1a2e; font-family: 'Noto Sans SC', -apple-system, sans-serif; min-height: 100vh; padding: 40px 20px; }
-  .container { max-width: 1260px; margin: 0 auto; }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五级基金方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c4952a;
+    --gold-light: #fdf8ef;
+    --gold-border: #e8d5a8;
+    --blue: #2563eb;
+    --green: #16a34a;
+    --purple: #7c3aed;
+    --red: #dc2626;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-800);
+    line-height: 1.6;
+    padding: 32px 20px;
+  }
+  .page { max-width: 1100px; margin: 0 auto; }
 
   /* Password Gate */
-  #gate { display:flex; align-items:center; justify-content:center; min-height:100vh; background:linear-gradient(135deg,#667eea,#764ba2); position:fixed; top:0; left:0; right:0; bottom:0; z-index:9999; }
-  #gate .box { background:#fff; border-radius:16px; padding:48px; width:380px; box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center; }
-  #gate h2 { margin-bottom:8px; font-size:22px; }
-  #gate p { color:#666; font-size:14px; margin-bottom:24px; }
-  #gate input { width:100%; padding:14px; border:2px solid #e0e0e0; border-radius:10px; font-size:16px; text-align:center; letter-spacing:8px; outline:none; }
-  #gate input:focus { border-color:#667eea; }
-  #gate button { width:100%; padding:14px; margin-top:16px; background:#667eea; color:#fff; border:none; border-radius:10px; font-size:16px; font-weight:600; cursor:pointer; }
-  #gate .err { color:#e74c3c; font-size:13px; margin-top:10px; display:none; }
+  #gate { display:flex; align-items:center; justify-content:center; min-height:100vh; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%); position:fixed; top:0; left:0; right:0; bottom:0; z-index:9999; }
+  #gate .box { background:#fff; border-radius:20px; padding:44px 40px; width:360px; box-shadow: 0 25px 60px rgba(0,0,0,0.4); text-align:center; }
+  #gate h2 { font-size:20px; font-weight:700; color: var(--gray-800); margin-bottom:6px; }
+  #gate p { color: var(--gray-400); font-size:13px; margin-bottom:28px; }
+  #gate input { width:100%; padding:13px; border:2px solid var(--gray-200); border-radius:10px; font-size:18px; text-align:center; letter-spacing:10px; outline:none; transition: border-color .2s; }
+  #gate input:focus { border-color: var(--gold); }
+  #gate button { width:100%; padding:13px; margin-top:14px; background: var(--gray-800); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition: background .2s; }
+  #gate button:hover { background: var(--gray-900); }
+  #gate .err { color: var(--red); font-size:13px; margin-top:10px; display:none; }
 
-  /* Editable highlights */
-  [contenteditable="true"] { outline: none; transition: background 0.2s, box-shadow 0.2s; border-radius: 3px; }
-  [contenteditable="true"]:hover { background: rgba(102,126,234,0.06); }
-  [contenteditable="true"]:focus { background: rgba(102,126,234,0.1); box-shadow: 0 0 0 2px rgba(102,126,234,0.3); }
+  /* Editable */
+  [contenteditable="true"] { outline:none; border-radius:3px; transition: background .15s; }
+  [contenteditable="true"]:hover { background: rgba(37,99,235,0.04); }
+  [contenteditable="true"]:focus { background: rgba(37,99,235,0.08); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
 
-  /* Top bar */
-  .topbar { background:#fff; border-bottom:1px solid #e0e0e0; padding:14px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; margin:-40px -20px 24px; }
-  .topbar h1 { font-size:15px; color:#333; }
-  .topbar .btns { display:flex; gap:10px; }
-  .topbar button { padding:8px 16px; border:none; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; }
-  .btn-hint { background:#f0f0f4; color:#666; font-size:11px !important; cursor:default !important; }
+  /* Header */
+  .header { text-align:center; margin-bottom:28px; }
+  .header h1 { font-size:26px; font-weight:900; color: var(--gray-900); letter-spacing:2px; }
+  .header .sub { font-size:13px; color: var(--gray-400); margin-top:8px; }
 
-  /* Cards */
-  .card { background:#fff; border:1px solid #e8e8ee; border-radius:12px; padding:22px 26px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-  .card-accent { border-left:4px solid #d4a054; }
-  .card h2 { font-size:18px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-  .card h2 .tag { font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px; display:inline-block; }
-  .tag-blue { background:#e8f0fe; color:#1a73e8; } .tag-green { background:#e6f7ed; color:#137333; }
-  .tag-purple { background:#f0e8fe; color:#7c3aed; } .tag-gold { background:#fef3e2; color:#b8860b; }
-  .tag-rose { background:#fde8ec; color:#c62828; } .tag-gray { background:#f0f0f4; color:#555; }
+  /* Flow */
+  .flow { display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:24px; padding:16px 24px; background: var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--radius); }
+  .flow .step { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:500; color: var(--gray-600); }
+  .flow .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .flow .arrow { color: var(--gray-300); font-size:14px; margin:0 2px; }
+  .flow .active { color: var(--gold); font-weight:700; }
+  .flow .active .dot { width:10px; height:10px; }
 
-  /* Level Row */
-  .level-row { display:flex; gap:14px; margin-bottom:18px; }
-  .level-box { flex:1; background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:16px 18px; box-shadow:0 1px 3px rgba(0,0,0,0.04); position:relative; }
-  .level-box .level-num { font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; display:inline-block; margin-bottom:8px; }
-  .level-box .level-title { font-size:16px; font-weight:700; margin-bottom:4px; }
-  .level-box .level-sub { font-size:13px; color:#8c8c9a; line-height:1.6; }
-  .level-box .level-badge { font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px; position:absolute; top:14px; right:14px; }
+  /* Card base */
+  .card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius); padding:20px 24px; margin-bottom:14px; box-shadow: var(--shadow); }
+  .card-title { font-size:16px; font-weight:700; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
+  .card-desc { font-size:13px; color: var(--gray-400); margin-bottom:12px; }
+
+  /* Tags */
+  .tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; display:inline-block; }
+  .tag-blue { background:#eff6ff; color: var(--blue); }
+  .tag-green { background:#f0fdf4; color: var(--green); }
+  .tag-purple { background:#f5f3ff; color: var(--purple); }
+  .tag-gold { background:#fefce8; color: var(--gold); }
+  .tag-red { background:#fef2f2; color: var(--red); }
+
+  /* Level 1-3 */
+  .level-row { display:flex; gap:12px; }
+  .level-box { flex:1; background: var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:14px 16px; position:relative; }
+  .level-box .num { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; display:inline-block; margin-bottom:6px; }
+  .level-box .name { font-size:15px; font-weight:700; margin-bottom:4px; }
+  .level-box .desc { font-size:12px; color: var(--gray-500); line-height:1.6; }
+  .level-box .badge { font-size:10px; font-weight:600; padding:2px 8px; border-radius:4px; position:absolute; top:12px; right:12px; }
 
   /* Level 4 */
-  .level4-main { background:#fffdf5; border:2px solid #d4a054; border-radius:14px; padding:28px 32px; margin-bottom:18px; box-shadow:0 2px 12px rgba(212,160,84,0.12); position:relative; }
-  .level4-main .star-badge { position:absolute; top:-1px; left:28px; background:#d4a054; color:#fff; font-size:12px; font-weight:700; padding:4px 14px; border-radius:0 0 8px 8px; }
-  .level4-main h2 { font-size:22px; font-weight:900; color:#8b6914; margin-bottom:6px; }
-  .level4-main .l4-sub { font-size:14px; color:#a0844a; margin-bottom:18px; }
+  .l4 { background: var(--gold-light); border:2px solid var(--gold-border); border-radius:12px; padding:24px 28px; margin-bottom:14px; position:relative; box-shadow: 0 2px 8px rgba(196,149,42,0.08); }
+  .l4 .badge { position:absolute; top:-1px; left:24px; background: var(--gold); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:0 0 8px 8px; }
+  .l4 h2 { font-size:20px; font-weight:900; color: #8b6914; margin-bottom:4px; }
+  .l4 .sub { font-size:13px; color: #a0844a; margin-bottom:16px; }
+  .l4-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .l4-card { background:rgba(255,255,255,0.8); border:1px solid var(--gold-border); border-radius:8px; padding:14px 16px; }
+  .l4-card h3 { font-size:13px; font-weight:700; color: var(--gray-700); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .l4-card ul { list-style:none; }
+  .l4-card li { font-size:13px; color: var(--gray-600); line-height:1.8; padding-left:14px; position:relative; }
+  .l4-card li::before { content:''; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background: var(--gold-border); }
+  .l4-card li strong { color: var(--gray-800); font-weight:600; }
 
-  /* Grids */
-  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
-  .sub-card { background:#fafbfd; border:1px solid #eee; border-radius:8px; padding:14px 16px; }
-  .sub-card h3 { font-size:14px; font-weight:700; margin-bottom:10px; color:#333; display:flex; align-items:center; gap:6px; }
-  .sub-card h3 .icon { font-size:15px; }
-  .sub-card ul { list-style:none; padding:0; }
-  .sub-card li { font-size:13px; color:#555; line-height:1.9; padding-left:12px; position:relative; }
-  .sub-card li::before { content:'•'; position:absolute; left:0; color:#bbb; }
-  .sub-card li strong { color:#333; font-weight:600; }
+  /* Divider */
+  .divider { text-align:center; margin:28px 0 20px; font-size:13px; font-weight:600; color: var(--gray-400); letter-spacing:3px; }
 
-  /* Summary */
-  .summary-line { background:#f5f5f8; border-radius:8px; padding:14px 20px; display:flex; justify-content:center; gap:40px; margin-bottom:18px; font-size:13px; font-weight:500; }
-  .summary-line .step { display:flex; align-items:center; gap:6px; }
-  .summary-line .step-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
-  .summary-line .arrow { color:#ccc; font-size:16px; }
+  /* Phase */
+  .phase-header { margin-bottom:14px; }
+  .phase-header .card-title { font-size:16px; }
+  .phase-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .phase { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius); padding:16px 18px; box-shadow: var(--shadow); }
+  .phase h3 { font-size:14px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .phase .ptag { font-size:10px; font-weight:600; padding:2px 8px; border-radius:4px; background:#eff6ff; color: var(--blue); }
+  .phase .intro { font-size:12px; color: var(--gray-500); margin-bottom:6px; }
+  .phase ol { padding-left:18px; margin:0; }
+  .phase li { font-size:13px; color: var(--gray-600); line-height:1.75; }
+  .phase li strong { color: var(--gray-800); }
 
-  /* Phase & Guarantee */
-  .page-break { text-align:center; margin:24px 0 18px; font-size:14px; font-weight:700; color:#8c8c9a; letter-spacing:4px; }
-  .phase-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-  .phase-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:14px 16px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-  .phase-card h3 { font-size:15px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-  .phase-card .phase-tag { font-size:10px; font-weight:600; padding:2px 6px; border-radius:3px; background:#e8f0fe; color:#1a73e8; }
-  .phase-card ol { padding-left:16px; margin:0; }
-  .phase-card li { font-size:13px; color:#555; line-height:1.8; }
-  .phase-card li strong { color:#333; }
-  .guarantee-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px; }
-  .guarantee-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:14px 16px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-  .guarantee-card h3 { font-size:15px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-  .guarantee-card ul { list-style:none; padding:0; }
-  .guarantee-card li { font-size:13px; color:#555; line-height:1.8; padding-left:12px; position:relative; }
-  .guarantee-card li::before { content:'•'; position:absolute; left:0; color:#bbb; }
-  .guarantee-card li strong { color:#333; }
-  .footer { text-align:center; margin-top:30px; font-size:11px; color:#bbb; letter-spacing:1px; }
-</style></head><body>
-<div id="gate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#667eea,#764ba2);position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999"><div style="background:#fff;border-radius:16px;padding:48px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center"><h2 style="margin-bottom:8px;font-size:22px">🔐 五级基金架构图</h2><p style="color:#666;font-size:14px;margin-bottom:24px">请输入密码查看与编辑</p><input type="password" id="pw" placeholder="····" maxlength="10" style="width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:10px;font-size:16px;text-align:center;letter-spacing:8px;outline:none" autofocus><button onclick="checkPw()" style="width:100%;padding:14px;margin-top:16px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer">进入</button><div id="pw-err" style="color:#e74c3c;font-size:13px;margin-top:10px;display:none">密码错误</div></div></div><div class="container" id="main" style="display: block;">
+  /* Guarantee */
+  .gua-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .gua { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius); padding:16px 18px; box-shadow: var(--shadow); }
+  .gua h3 { font-size:14px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .gua h3 .ico { font-size:8px; }
+  .gua ul { list-style:none; }
+  .gua li { font-size:13px; color: var(--gray-600); line-height:1.75; padding-left:14px; position:relative; }
+  .gua li::before { content:''; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background: var(--gray-300); }
+  .gua li strong { color: var(--gray-800); font-weight:600; }
 
-  
+  /* Footer */
+  .footer { text-align:center; margin-top:28px; padding-top:16px; border-top:1px solid var(--gray-200); font-size:11px; color: var(--gray-400); letter-spacing:1px; }
+
+  /* Responsive */
+  @media (max-width:768px) {
+    .level-row { flex-direction:column; }
+    .l4-grid { grid-template-columns:1fr; }
+    .phase-grid { grid-template-columns:1fr; }
+    .gua-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Gate -->
+<div id="gate">
+  <div class="box">
+    <h2>🔐 五级基金架构图</h2>
+    <p>请输入密码查看与编辑</p>
+    <input type="password" id="pw" placeholder="····" maxlength="10" autofocus>
+    <button onclick="checkPw()">进入</button>
+    <div id="pw-err" class="err">密码错误</div>
+  </div>
+</div>
+
+<div class="page" id="main" style="display:block;">
 
   <!-- Header -->
-  <div class="header" style="text-align:center;margin-bottom:32px">
-    <h1 style="font-size:28px;font-weight:900;color:#1a1a2e;letter-spacing:3px">长春市光电信息产业五级基金体系架构</h1>
-    <div class="subtitle" style="font-size:14px;color:#8c8c9a;margin-top:6px;letter-spacing:1px">「投早 → 投小 → 投成长 → 投重大 → 促整合」全周期接续投资格局 · 以重大产业投资基金为核心</div>
+  <div class="header">
+    <h1>长春市光电信息产业五级基金体系架构</h1>
+    <div class="sub">「投早 → 投小 → 投成长 → 投重大 → 促整合」全周期接续投资格局 · 以重大产业投资基金为核心</div>
   </div>
 
-  <!-- Summary Flow -->
-  <div class="summary-line">
-    <div class="step"><span class="step-dot" style="background:#1a73e8"></span> <span>发现项目</span></div>
+  <!-- Flow -->
+  <div class="flow">
+    <div class="step"><span class="dot" style="background:var(--blue)"></span> 发现项目</div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#137333"></span> <span>孵化项目</span></div>
+    <div class="step"><span class="dot" style="background:var(--green)"></span> 孵化项目</div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#7c3aed"></span> <span>培育成长</span></div>
+    <div class="step"><span class="dot" style="background:var(--purple)"></span> 培育成长</div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#d4a054"></span> <strong style="color:#8b6914">培育产业</strong></div>
+    <div class="step active"><span class="dot" style="background:var(--gold)"></span> 培育产业</div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#c62828"></span> <span>整合龙头</span></div>
+    <div class="step"><span class="dot" style="background:var(--red)"></span> 整合龙头</div>
   </div>
 
-  <!-- LEVEL 1-3 -->
+  <!-- Level 1-3 -->
   <div class="card">
-    <h2>
-      <span class="tag tag-gray">一至三级</span>
+    <div class="card-title">
+      <span class="tag tag-blue">一至三级</span>
       <span>引导基金（政府投资基金）</span>
-      <span style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长兴基金管理 · 已设立16支</span>
-    </h2>
-    <p style="font-size:13px;color:#8c8c9a;margin-bottom:14px">
-      性质定位：财政资金引导、社会资本跟投的政策性基金 &nbsp;|&nbsp; 核心使命：<strong style="color:#555">发现项目、筛选项目、孵化项目</strong>
-    </p>
+      <span style="font-size:12px;color:var(--gray-400);font-weight:400">· 长兴基金管理 · 已设立16支</span>
+    </div>
+    <div class="card-desc">性质定位：财政资金引导、社会资本跟投的政策性基金 ｜ 核心使命：<strong style="color:var(--gray-600)">发现项目、筛选项目、孵化项目</strong></div>
     <div class="level-row">
       <div class="level-box">
-        <span class="level-num" style="background:#e8f0fe;color:#1a73e8">一级</span>
-        <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#1a73e8">种子 / 概念验证基金</div>
-        <div class="level-sub">
-          概念验证 · 实验室阶段 · 原型开发<br>
-          <strong style="color:#1a73e8">单笔 ≤ 500万元</strong>
-        </div>
+        <span class="num" style="background:#eff6ff;color:var(--blue)">一级</span>
+        <span class="badge" style="background:#f0fdf4;color:var(--green)">✅ 已设立</span>
+        <div class="name" style="color:var(--blue)">种子 / 概念验证基金</div>
+        <div class="desc">概念验证 · 实验室阶段 · 原型开发<br><strong style="color:var(--blue)">单笔 ≤ 500万元</strong></div>
       </div>
       <div class="level-box">
-        <span class="level-num" style="background:#e6f7ed;color:#137333">二级</span>
-        <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#137333">天使 / 科技成果转化基金</div>
-        <div class="level-sub">
-          院所成果孵化 · 天使轮 · 技术转化落地<br>
-          <strong style="color:#137333">单笔 500万–2000万元</strong>
-        </div>
+        <span class="num" style="background:#f0fdf4;color:var(--green)">二级</span>
+        <span class="badge" style="background:#f0fdf4;color:var(--green)">✅ 已设立</span>
+        <div class="name" style="color:var(--green)">天使 / 科技成果转化基金</div>
+        <div class="desc">院所成果孵化 · 天使轮 · 技术转化落地<br><strong style="color:var(--green)">单笔 500万–2000万元</strong></div>
       </div>
       <div class="level-box">
-        <span class="level-num" style="background:#f0e8fe;color:#7c3aed">三级</span>
-        <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#7c3aed">成长 / PE 基金</div>
-        <div class="level-sub">
-          企业成长期 · 规模化扩张&nbsp;<br>
-          <strong style="color:#7c3aed">单笔 2000万–5000万元</strong>
-        </div>
+        <span class="num" style="background:#f5f3ff;color:var(--purple)">三级</span>
+        <span class="badge" style="background:#f0fdf4;color:var(--green)">✅ 已设立</span>
+        <div class="name" style="color:var(--purple)">成长 / PE 基金</div>
+        <div class="desc">企业成长期 · 规模化扩张<br><strong style="color:var(--purple)">单笔 2000万–5000万元</strong></div>
       </div>
     </div>
   </div>
 
-  <!-- LEVEL 4 -->
-  <div class="level4-main">
-    <div class="star-badge">★ 四级 · 天蚨基金</div>
+  <!-- Level 4 -->
+  <div class="l4">
+    <div class="badge">★ 四级 · 天蚨基金</div>
     <h2>重大项目产业投资基金（国企投资基金）</h2>
-    <div class="l4-sub">国有投资基金 · 天蚨基金管理 · 承上启下 ｜ 核心使命：<strong style="color:#8b6914">培育产业、做大项目、落地产能</strong></div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:16px">
-      <div class="sub-card">
-        <h3><span class="icon">📋</span> <span>基金架构</span></h3>
+    <div class="sub">国有投资基金 · 天蚨基金管理 · 承上启下 ｜ 核心使命：<strong style="color:#8b6914">培育产业、做大项目、落地产能</strong></div>
+    <div class="l4-grid">
+      <div class="l4-card">
+        <h3>📋 基金架构</h3>
         <ul>
           <li><strong>总规模：</strong>100亿元，首期20亿元，分期实缴</li>
           <li><strong>存续期限：</strong>8+2年（投6退2，可延长2年）</li>
@@ -164,26 +219,25 @@
           <li><strong>架构：</strong>母基金 + 子基金 + 直投</li>
         </ul>
       </div>
-      <div class="sub-card">
-        <h3><span class="icon">🏗️</span> <span>投资分档（直投）</span></h3>
+      <div class="l4-card">
+        <h3>🏗️ 投资分档（直投）</h3>
         <ul>
           <li><strong>重大项目：5000万–2亿元</strong><br>链上配套、关键零部件产能</li>
           <li><strong>特大项目：2亿–10亿元</strong><br>成果规模化量产、企业扩产升级</li>
           <li><strong>超大项目：10亿以上</strong><br>链主企业重大投资、重点招商落地</li>
         </ul>
       </div>
-      <div class="sub-card">
-        <h3><span class="icon">💰</span> <span>资金来源</span></h3>
+      <div class="l4-card">
+        <h3>💰 资金来源</h3>
         <ul>
           <li><strong>市财政 / 金控集团：</strong>核心出资</li>
           <li><strong>国家大基金：</strong>争取国家集成电路基金等出资</li>
           <li><strong>金融机构：</strong>银行、保险、信托配资</li>
           <li><strong>外部资本：</strong>产业资本、上市公司、社会资本</li>
-          
         </ul>
       </div>
-      <div class="sub-card">
-        <h3><span class="icon">🔗</span> <span>前后端衔接</span></h3>
+      <div class="l4-card">
+        <h3>🔗 前后端衔接</h3>
         <ul>
           <li><strong>前端衔接（一至三级）：</strong>与长兴基金建立项目推荐清单、投资进度共享、接续投资优先权</li>
           <li><strong>后端协同（五级）：</strong>与并购基金建立项目退出通道、产业整合协同</li>
@@ -193,35 +247,31 @@
     </div>
   </div>
 
-  <!-- LEVEL 5 -->
-  <div class="card" style="border-left:4px solid #c62828">
-    <h2>
-      <span class="tag tag-rose">五级</span>
+  <!-- Level 5 -->
+  <div class="card" style="border-left:3px solid var(--red)">
+    <div class="card-title">
+      <span class="tag tag-red">五级</span>
       <span>并购基金（国企投资基金）</span>
-      <span style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长发集团 × 龙鼎投资管理 · 推动中</span>
-    </h2>
-    <p style="font-size:13px;color:#8c8c9a;margin-bottom:10px">
-      性质定位：市场化运作的产业并购基金 &nbsp;|&nbsp; 核心使命：<strong style="color:#555">整合产业链、做大做强龙头企业</strong>
-    </p>
-    <p style="font-size:13px;color:#555">
-      投资方式：并购贷款 + 股权投资 + 过桥融资 &nbsp;&nbsp;|&nbsp;&nbsp;
-      重点方向：上市公司并购、产业链垂直整合、跨区域产业整合
-    </p>
+      <span style="font-size:12px;color:var(--gray-400);font-weight:400">· 长发集团 × 龙鼎投资管理 · 推动中</span>
+    </div>
+    <div class="card-desc">性质定位：市场化运作的产业并购基金 ｜ 核心使命：<strong style="color:var(--gray-600)">整合产业链、做大做强龙头企业</strong></div>
+    <div style="font-size:13px;color:var(--gray-600)">投资方式：并购贷款 + 股权投资 + 过桥融资 ｜ 重点方向：上市公司并购、产业链垂直整合、跨区域产业整合</div>
   </div>
 
-  <!-- PAGE 2 -->
-  <div class="page-break">—— 实施路径与保障措施 ——</div>
+  <!-- Divider -->
+  <div class="divider">—— 实施路径与保障措施 ——</div>
 
-  <div class="card card-accent">
-    <h2>
+  <!-- Phases -->
+  <div class="card" style="border-left:3px solid var(--gold);margin-bottom:12px">
+    <div class="card-title">
       <span class="tag tag-gold">实施路径</span>
       <span style="font-size:15px">重大项目产业投资基金分阶段推进计划</span>
-    </h2>
+    </div>
   </div>
 
   <div class="phase-grid">
-    <div class="phase-card">
-      <h3><span class="phase-tag">第一阶段</span> <span>顶层设计（2026 Q2–Q3）</span></h3>
+    <div class="phase">
+      <h3><span class="ptag">第一阶段</span> 顶层设计（2026 Q2–Q3）</h3>
       <ol>
         <li>完成基金<strong>设立方案编制</strong>（组织形式、出资结构、治理架构、投资策略、退出机制）</li>
         <li><strong>报市政府审批</strong>（市财政局、市金融办审核 → 市政府常务会议审议）</li>
@@ -230,8 +280,8 @@
         <li><strong>中基协备案登记</strong>（管理人登记 + 产品备案）</li>
       </ol>
     </div>
-    <div class="phase-card">
-      <h3><span class="phase-tag">第二阶段</span> <span>资金募集（2026 Q3–Q4）</span></h3>
+    <div class="phase">
+      <h3><span class="ptag">第二阶段</span> 资金募集（2026 Q3–Q4）</h3>
       <ol>
         <li>落实<strong>市财政出资</strong>，纳入年度预算</li>
         <li><strong>国有资本</strong>核心出资到位，分批实缴</li>
@@ -240,9 +290,9 @@
         <li><strong>外部资本引入</strong>（产业资本、上市公司等战略投资者）</li>
       </ol>
     </div>
-    <div class="phase-card">
-      <h3><span class="phase-tag">第三阶段</span> <span>制度建设（2026 Q4）</span></h3>
-      <p style="font-size:12px;color:#666;margin-bottom:8px">围绕重大项目产业投资基金运作特点，建立以下核心制度：</p>
+    <div class="phase">
+      <h3><span class="ptag">第三阶段</span> 制度建设（2026 Q4）</h3>
+      <div class="intro">围绕重大项目产业投资基金运作特点，建立以下核心制度：</div>
       <ol>
         <li>建立<strong>投资决策制度</strong></li>
         <li>建立<strong>风控管理制度</strong></li>
@@ -251,8 +301,8 @@
         <li>建立<strong>前端基金衔接制度</strong></li>
       </ol>
     </div>
-    <div class="phase-card">
-      <h3><span class="phase-tag">第四阶段</span> <span>项目储备与投资运作（2026 Q3起）</span></h3>
+    <div class="phase">
+      <h3><span class="ptag">第四阶段</span> 项目储备与投资运作（2026 Q3起）</h3>
       <ol>
         <li>建立<strong>光电重大项目库</strong>（对接中国光电城、光机所、应化所、重点企业）</li>
         <li>梳理<strong>链主企业扩产需求</strong>（奥普光电、长光辰芯、长光卫星等）</li>
@@ -264,25 +314,25 @@
     </div>
   </div>
 
-  <!-- Safeguards -->
-  <div class="card card-accent">
-    <h2>
+  <!-- Guarantees -->
+  <div class="card" style="border-left:3px solid var(--gold);margin-bottom:12px">
+    <div class="card-title">
       <span class="tag tag-gold">保障措施</span>
       <span style="font-size:15px">六大保障体系</span>
-    </h2>
+    </div>
   </div>
 
-  <div class="guarantee-grid">
-    <div class="guarantee-card">
-      <h3><span style="color:#1a73e8">●</span> <span>组织保障</span></h3>
+  <div class="gua-grid">
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--blue)">●</span> 组织保障</h3>
       <ul>
         <li><strong>明确基金筹备工作领导小组单位或人选</strong></li>
         <li><strong>明确职责分工</strong></li>
         <li><strong>定期调度机制</strong></li>
       </ul>
     </div>
-    <div class="guarantee-card">
-      <h3><span style="color:#d4a054">●</span> <span>资金保障</span></h3>
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--gold)">●</span> 资金保障</h3>
       <ul>
         <li><strong>财政资金优先保障</strong>，纳入年度预算</li>
         <li><strong>国有资本持续注资</strong>，分批实缴避免闲置</li>
@@ -290,8 +340,8 @@
         <li><strong>追加出资机制</strong>，根据进展适时增资</li>
       </ul>
     </div>
-    <div class="guarantee-card">
-      <h3><span style="color:#137333">●</span> <span>制度保障</span></h3>
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--green)">●</span> 制度保障</h3>
       <ul>
         <li><strong>投决制度</strong>：投决会规则</li>
         <li><strong>风控制度</strong>：出资方式、止损线、关联交易禁止等</li>
@@ -299,24 +349,24 @@
         <li><strong>审计监督</strong>：年度第三方审计</li>
       </ul>
     </div>
-    <div class="guarantee-card">
-      <h3><span style="color:#7c3aed">●</span> <span>人才保障</span></h3>
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--purple)">●</span> 人才保障</h3>
       <ul>
         <li><strong>组建专业投资团队</strong>，内部抽调 + 市场化招聘</li>
         <li><strong>专家咨询机制</strong>，光电技术、产业经济、基金法律顾问</li>
         <li><strong>绩效激励</strong>，与业绩挂钩，GP团队参与Carry分配</li>
       </ul>
     </div>
-    <div class="guarantee-card">
-      <h3><span style="color:#c62828">●</span> <span>政策保障</span></h3>
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--red)">●</span> 政策保障</h3>
       <ul>
         <li><strong>市级配套政策</strong>：土地、税收、人才专项支持</li>
         <li><strong>省级政策对接</strong>：争取省级资金配套和政策倾斜</li>
         <li><strong>国家级政策窗口</strong>：对接国家大基金，争取出资和项目合作</li>
       </ul>
     </div>
-    <div class="guarantee-card">
-      <h3><span style="color:#d4a054">●</span> <span>协同保障</span></h3>
+    <div class="gua">
+      <h3><span class="ico" style="color:var(--gold)">●</span> 协同保障</h3>
       <ul>
         <li><strong>前端衔接</strong>：与长兴基金项目推荐清单、接续投资优先权</li>
         <li><strong>后端协同</strong>：与并购基金项目退出通道、产业整合协同</li>
@@ -331,12 +381,12 @@
   </div>
 
 </div>
+
 <script>
 function checkPw() {
   var pw = document.getElementById('pw').value;
   if (pw === 'tfjj') {
     document.getElementById('gate').style.display = 'none';
-    document.getElementById('main').style.display = 'block';
     enableEdit();
   } else {
     document.getElementById('pw-err').style.display = 'block';
@@ -345,7 +395,7 @@ function checkPw() {
 }
 function enableEdit() {
   var main = document.getElementById('main');
-  main.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line, h1, h2, h3, p, li, .flow-label, .arrow').forEach(function(el) {
+  main.querySelectorAll('.card, .l4, .phase, .gua, .flow, h1, h2, h3, p, li, .step, .card-desc, .card-title, .l4-card, .level-box, .desc, .sub, .intro, .divider').forEach(function(el) {
     el.contentEditable = 'true';
   });
 }
@@ -353,8 +403,6 @@ document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key=
 function exportAll() {
   var ed = document.getElementById('main');
   var clone = ed.cloneNode(true);
-  var tb = clone.querySelector('[style]');
-  if (tb && tb.style.position === 'sticky') tb.remove();
   clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
   var h = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title>' + document.querySelector('style').outerHTML + '</head><body>' + clone.outerHTML + '</body></html>';
   var blob = new Blob([h], {type:'text/html'});
@@ -362,10 +410,11 @@ function exportAll() {
 }
 function copyAll() {
   var ed = document.getElementById('main');
-  var secs = ed.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line');
+  var secs = ed.querySelectorAll('.card, .l4, .phase, .gua, .flow');
   var text = '关于加快构建五级基金体系\n长春市光电信息重大项目产业投资基金架构与实施路径\n\n';
   secs.forEach(function(s){ var t = s.innerText.trim(); if(t) text += t + '\n\n'; });
   navigator.clipboard.writeText(text).then(function(){ alert('已复制到剪贴板'); });
 }
 </script>
-</body></html><!-- force deploy Wed May 13 06:13:53 EDT 2026 -->
+</body>
+</html>
