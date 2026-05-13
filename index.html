@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>五级基金体系架构图 · 编辑版</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-<style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title><style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #f8f9fb; color: #1a1a2e; font-family: 'Noto Sans SC', -apple-system, sans-serif; min-height: 100vh; padding: 40px 20px; }
   .container { max-width: 1260px; margin: 0 auto; }
@@ -33,7 +26,7 @@
   .btn-hint { background:#f0f0f4; color:#666; font-size:11px !important; cursor:default !important; }
 
   /* Cards */
-  .card { background:#fff; border:1px solid #e8e8ee; border-radius:12px; padding:16px 20px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+  .card { background:#fff; border:1px solid #e8e8ee; border-radius:12px; padding:22px 26px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
   .card-accent { border-left:4px solid #d4a054; }
   .card h2 { font-size:16px; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
   .card h2 .tag { font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px; display:inline-block; }
@@ -56,13 +49,13 @@
   .level4-main .l4-sub { font-size:13px; color:#a0844a; margin-bottom:18px; }
 
   /* Grids */
-  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
   .sub-card { background:#fafbfd; border:1px solid #eee; border-radius:8px; padding:14px 16px; }
   .sub-card h3 { font-size:13px; font-weight:700; margin-bottom:10px; color:#333; display:flex; align-items:center; gap:6px; }
   .sub-card h3 .icon { font-size:14px; }
   .sub-card ul { list-style:none; padding:0; }
-  .sub-card li { font-size:12px; color:#555; line-height:1.6; padding-left:12px; position:relative; }
+  .sub-card li { font-size:12px; color:#555; line-height:1.9; padding-left:12px; position:relative; }
   .sub-card li::before { content:'•'; position:absolute; left:0; color:#bbb; }
   .sub-card li strong { color:#333; font-weight:600; }
 
@@ -73,83 +66,61 @@
   .summary-line .arrow { color:#ccc; font-size:16px; }
 
   /* Phase & Guarantee */
-  .page-break { text-align:center; margin:24px 0 18px; font-size:14px; font-weight:700; color:#8c8c9a; letter-spacing:4px; }
-  .phase-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-  .phase-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:14px 16px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-  .phase-card h3 { font-size:14px; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .page-break { text-align:center; margin:36px 0 28px; font-size:14px; font-weight:700; color:#8c8c9a; letter-spacing:4px; }
+  .phase-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .phase-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:18px 20px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+  .phase-card h3 { font-size:14px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
   .phase-card .phase-tag { font-size:10px; font-weight:600; padding:2px 6px; border-radius:3px; background:#e8f0fe; color:#1a73e8; }
   .phase-card ol { padding-left:16px; margin:0; }
-  .phase-card li { font-size:12px; color:#555; line-height:1.6; }
+  .phase-card li { font-size:12px; color:#555; line-height:1.9; }
   .phase-card li strong { color:#333; }
-  .guarantee-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px; }
-  .guarantee-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:14px 16px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-  .guarantee-card h3 { font-size:14px; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .guarantee-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+  .guarantee-card { background:#fff; border:1px solid #e8e8ee; border-radius:10px; padding:18px 20px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+  .guarantee-card h3 { font-size:14px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
   .guarantee-card ul { list-style:none; padding:0; }
-  .guarantee-card li { font-size:12px; color:#555; line-height:1.6; padding-left:12px; position:relative; }
+  .guarantee-card li { font-size:12px; color:#555; line-height:1.9; padding-left:12px; position:relative; }
   .guarantee-card li::before { content:'•'; position:absolute; left:0; color:#bbb; }
   .guarantee-card li strong { color:#333; }
   .footer { text-align:center; margin-top:30px; font-size:11px; color:#bbb; letter-spacing:1px; }
-</style>
-</head>
-<body>
+</style></head><body><div class="container" id="main" style="display: block;">
 
-<!-- Password Gate -->
-<div id="gate">
-  <div class="box">
-    <h2>🔐 五级基金架构图</h2>
-    <p>请输入密码查看与编辑</p>
-    <input type="password" id="pw" placeholder="····" maxlength="10" autofocus>
-    <button onclick="checkPw()">进入</button>
-    <div class="err" id="pw-err">密码错误</div>
-  </div>
-</div>
-
-<div class="container" id="main" style="display:none">
-
-  <div class="topbar">
-    <h1>📝 点击任意文字直接编辑 · 改完截图或导出即可</h1>
-    <div class="btns">
-      <button class="btn-hint">💡 点击文字即可编辑</button>
-      <button onclick="exportAll()" style="background:#667eea;color:#fff">📋 导出全文</button>
-      <button onclick="copyAll()" style="background:#27ae60;color:#fff">📑 复制到剪贴板</button>
-    </div>
-  </div>
+  
 
   <!-- Header -->
   <div class="header" style="text-align:center;margin-bottom:32px">
-    <h1 contenteditable="true" style="font-size:26px;font-weight:900;color:#1a1a2e;letter-spacing:3px">长春市光电信息产业五级基金体系架构</h1>
-    <div contenteditable="true" class="subtitle" style="font-size:13px;color:#8c8c9a;margin-top:6px;letter-spacing:1px">「投早 → 投小 → 投成长 → 投重大 → 促整合」全周期接续投资格局 · 以重大产业投资基金为核心</div>
+    <h1 style="font-size:26px;font-weight:900;color:#1a1a2e;letter-spacing:3px">长春市光电信息产业五级基金体系架构</h1>
+    <div class="subtitle" style="font-size:13px;color:#8c8c9a;margin-top:6px;letter-spacing:1px">「投早 → 投小 → 投成长 → 投重大 → 促整合」全周期接续投资格局 · 以重大产业投资基金为核心</div>
   </div>
 
   <!-- Summary Flow -->
   <div class="summary-line">
-    <div class="step"><span class="step-dot" style="background:#1a73e8"></span> <span contenteditable="true">发现项目</span></div>
+    <div class="step"><span class="step-dot" style="background:#1a73e8"></span> <span>发现项目</span></div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#137333"></span> <span contenteditable="true">孵化项目</span></div>
+    <div class="step"><span class="step-dot" style="background:#137333"></span> <span>孵化项目</span></div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#7c3aed"></span> <span contenteditable="true">培育成长</span></div>
+    <div class="step"><span class="step-dot" style="background:#7c3aed"></span> <span>培育成长</span></div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#d4a054"></span> <strong contenteditable="true" style="color:#8b6914">培育产业</strong></div>
+    <div class="step"><span class="step-dot" style="background:#d4a054"></span> <strong style="color:#8b6914">培育产业</strong></div>
     <div class="arrow">→</div>
-    <div class="step"><span class="step-dot" style="background:#c62828"></span> <span contenteditable="true">整合龙头</span></div>
+    <div class="step"><span class="step-dot" style="background:#c62828"></span> <span>整合龙头</span></div>
   </div>
 
   <!-- LEVEL 1-3 -->
   <div class="card">
     <h2>
       <span class="tag tag-gray">一至三级</span>
-      <span contenteditable="true">引导基金（政府投资基金）</span>
-      <span contenteditable="true" style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长兴基金管理 · 已设立16支</span>
+      <span>引导基金（政府投资基金）</span>
+      <span style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长兴基金管理 · 已设立16支</span>
     </h2>
-    <p contenteditable="true" style="font-size:12px;color:#8c8c9a;margin-bottom:14px">
+    <p style="font-size:12px;color:#8c8c9a;margin-bottom:14px">
       性质定位：财政资金引导、社会资本跟投的政策性基金 &nbsp;|&nbsp; 核心使命：<strong style="color:#555">发现项目、筛选项目、孵化项目</strong>
     </p>
     <div class="level-row">
       <div class="level-box">
         <span class="level-num" style="background:#e8f0fe;color:#1a73e8">一级</span>
         <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#1a73e8" contenteditable="true">种子 / 概念验证基金</div>
-        <div class="level-sub" contenteditable="true">
+        <div class="level-title" style="color:#1a73e8">种子 / 概念验证基金</div>
+        <div class="level-sub">
           概念验证 · 实验室阶段 · 原型开发<br>
           <strong style="color:#1a73e8">单笔 ≤ 500万元</strong>
         </div>
@@ -157,8 +128,8 @@
       <div class="level-box">
         <span class="level-num" style="background:#e6f7ed;color:#137333">二级</span>
         <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#137333" contenteditable="true">天使 / 科技成果转化基金</div>
-        <div class="level-sub" contenteditable="true">
+        <div class="level-title" style="color:#137333">天使 / 科技成果转化基金</div>
+        <div class="level-sub">
           院所成果孵化 · 天使轮 · 技术转化落地<br>
           <strong style="color:#137333">单笔 500万–2000万元</strong>
         </div>
@@ -166,9 +137,9 @@
       <div class="level-box">
         <span class="level-num" style="background:#f0e8fe;color:#7c3aed">三级</span>
         <span class="level-badge" style="background:#e6f7ed;color:#137333">✅ 已设立</span>
-        <div class="level-title" style="color:#7c3aed" contenteditable="true">成长 / VC / PE 基金</div>
-        <div class="level-sub" contenteditable="true">
-          企业成长期 · 规模化扩张 · Pre-IPO<br>
+        <div class="level-title" style="color:#7c3aed">成长 / PE 基金</div>
+        <div class="level-sub">
+          企业成长期 · 规模化扩张&nbsp;<br>
           <strong style="color:#7c3aed">单笔 2000万–5000万元</strong>
         </div>
       </div>
@@ -178,44 +149,44 @@
   <!-- LEVEL 4 -->
   <div class="level4-main">
     <div class="star-badge">★ 四级 · 我们</div>
-    <h2 contenteditable="true">重大项目产业投资基金（国企投资基金）</h2>
-    <div class="l4-sub" contenteditable="true">国有投资基金 · 天蚨基金管理 · 承上启下 · 培育产业、做大项目、落地产能</div>
+    <h2>重大项目产业投资基金（国企投资基金）</h2>
+    <div class="l4-sub">国有投资基金 · 天蚨基金管理 · 承上启下 · 培育产业、做大项目、落地产能</div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:16px">
       <div class="sub-card">
-        <h3><span class="icon">📋</span> <span contenteditable="true">基本参数</span></h3>
+        <h3><span class="icon">📋</span> <span>基本参数</span></h3>
         <ul>
-          <li contenteditable="true"><strong>总规模：</strong>100亿元，分期实缴</li>
-          <li contenteditable="true"><strong>存续期限：</strong>8+2年（投6退2，可延长2年）</li>
-          <li contenteditable="true"><strong>组织形式：</strong>有限合伙（LP）</li>
-          <li contenteditable="true"><strong>管理人（GP）：</strong>天蚨基金</li>
-          <li contenteditable="true"><strong>架构：</strong>母基金 + 子基金 + 直投</li>
+          <li><strong>总规模：</strong>100亿元，分期实缴</li>
+          <li><strong>存续期限：</strong>8+2年（投6退2，可延长2年）</li>
+          <li><strong>组织形式：</strong>有限合伙（LP）</li>
+          <li><strong>管理人（GP）：</strong>天蚨基金</li>
+          <li><strong>架构：</strong>母基金 + 子基金 + 直投</li>
         </ul>
       </div>
       <div class="sub-card">
-        <h3><span class="icon">🏗️</span> <span contenteditable="true">投资分档（直投）</span></h3>
+        <h3><span class="icon">🏗️</span> <span>投资分档（直投）</span></h3>
         <ul>
-          <li contenteditable="true"><strong>5000万–2亿元</strong><br>链上配套、关键零部件产能</li>
-          <li contenteditable="true"><strong>2亿–10亿元</strong><br>成果规模化量产、企业扩产升级</li>
-          <li contenteditable="true"><strong>10亿–30亿元</strong><br>链主企业重大投资、重点招商落地</li>
+          <li><strong>小型重大项目：5000万–2亿元</strong><br>链上配套、关键零部件产能</li>
+          <li><strong>中型重大项目：2亿–10亿元</strong><br>成果规模化量产、企业扩产升级</li>
+          <li><strong>大型重大项目：10亿–30亿元</strong><br>链主企业重大投资、重点招商落地</li>
         </ul>
       </div>
       <div class="sub-card">
-        <h3><span class="icon">💰</span> <span contenteditable="true">资金来源</span></h3>
+        <h3><span class="icon">💰</span> <span>资金来源</span></h3>
         <ul>
-          <li contenteditable="true"><strong>市财政 / 金控集团：</strong>核心出资</li>
-          <li contenteditable="true"><strong>国家大基金：</strong>争取国家集成电路基金等出资</li>
-          <li contenteditable="true"><strong>金融机构：</strong>银行、保险、信托配资</li>
-          <li contenteditable="true"><strong>外部资本：</strong>产业资本、上市公司、社会资本</li>
+          <li><strong>市财政 / 金控集团：</strong>核心出资</li>
+          <li><strong>国家大基金：</strong>争取国家集成电路基金等出资</li>
+          <li><strong>金融机构：</strong>银行、保险、信托配资</li>
+          <li><strong>外部资本：</strong>产业资本、上市公司、社会资本</li>
           
         </ul>
       </div>
       <div class="sub-card">
-        <h3><span class="icon">🔗</span> <span contenteditable="true">前后端衔接</span></h3>
+        <h3><span class="icon">🔗</span> <span>前后端衔接</span></h3>
         <ul>
-          <li contenteditable="true"><strong>前端衔接（一至三级）：</strong>与长兴基金建立项目推荐清单、投资进度共享、接续投资优先权</li>
-          <li contenteditable="true"><strong>后端协同（五级）：</strong>与长发集团×龙鼎投资并购基金建立项目退出通道、产业整合协同</li>
-          <li contenteditable="true"><strong>政府协同：</strong>与市科技局、工信局、商务局重大项目信息共享和联合招商</li>
+          <li><strong>前端衔接（一至三级）：</strong>与长兴基金建立项目推荐清单、投资进度共享、接续投资优先权</li>
+          <li><strong>后端协同（五级）：</strong>与并购基金建立项目退出通道、产业整合协同</li>
+          <li><strong>政府协同：</strong>与市科技局、工信局、商务局重大项目信息共享和联合招商</li>
         </ul>
       </div>
     </div>
@@ -225,13 +196,13 @@
   <div class="card" style="border-left:4px solid #c62828">
     <h2>
       <span class="tag tag-rose">五级</span>
-      <span contenteditable="true">产业整合并购基金</span>
-      <span contenteditable="true" style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长发集团 × 龙鼎投资管理 · 推动中</span>
+      <span>并购基金（国企投资基金）</span>
+      <span style="font-size:12px;color:#8c8c9a;font-weight:400;margin-left:8px">· 长发集团 × 龙鼎投资管理 · 推动中</span>
     </h2>
-    <p contenteditable="true" style="font-size:12px;color:#8c8c9a;margin-bottom:10px">
+    <p style="font-size:12px;color:#8c8c9a;margin-bottom:10px">
       性质定位：市场化运作的产业并购基金 &nbsp;|&nbsp; 核心使命：<strong style="color:#555">整合产业链、做大做强龙头企业</strong>
     </p>
-    <p contenteditable="true" style="font-size:13px;color:#555">
+    <p style="font-size:13px;color:#555">
       投资方式：并购贷款 + 股权投资 + 过桥融资 &nbsp;&nbsp;|&nbsp;&nbsp;
       重点方向：上市公司并购、产业链垂直整合、跨区域产业整合
     </p>
@@ -243,50 +214,50 @@
   <div class="card card-accent">
     <h2>
       <span class="tag tag-gold">实施路径</span>
-      <span contenteditable="true" style="font-size:15px">重大项目产业投资基金分阶段推进计划</span>
+      <span style="font-size:15px">重大项目产业投资基金分阶段推进计划</span>
     </h2>
   </div>
 
   <div class="phase-grid">
     <div class="phase-card">
-      <h3><span class="phase-tag">第一阶段</span> <span contenteditable="true">顶层设计（2026 Q2–Q3）</span></h3>
+      <h3><span class="phase-tag">第一阶段</span> <span>顶层设计（2026 Q2–Q3）</span></h3>
       <ol>
-        <li contenteditable="true">完成基金<strong>设立方案编制</strong>（组织形式、出资结构、治理架构、投资策略、退出机制）</li>
-        <li contenteditable="true"><strong>报市政府审批</strong>（市财政局、市金融办审核 → 市政府常务会议审议）</li>
-        <li contenteditable="true">确定<strong>GP管理架构</strong>，明确天蚨基金与各方权责边界</li>
-        <li contenteditable="true">完成基金<strong>工商注册</strong>（有限合伙企业）、税务登记、银行开户</li>
-        <li contenteditable="true"><strong>中基协备案登记</strong>（管理人登记 + 产品备案）</li>
+        <li>完成基金<strong>设立方案编制</strong>（组织形式、出资结构、治理架构、投资策略、退出机制）</li>
+        <li><strong>报市政府审批</strong>（市财政局、市金融办审核 → 市政府常务会议审议）</li>
+        <li>确定<strong>GP管理架构</strong>，明确天蚨基金与各方权责边界</li>
+        <li>完成基金<strong>工商注册</strong>（有限合伙企业）、税务登记、银行开户</li>
+        <li><strong>中基协备案登记</strong>（管理人登记 + 产品备案）</li>
       </ol>
     </div>
     <div class="phase-card">
-      <h3><span class="phase-tag">第二阶段</span> <span contenteditable="true">资金募集（2026 Q3–Q4）</span></h3>
+      <h3><span class="phase-tag">第二阶段</span> <span>资金募集（2026 Q3–Q4）</span></h3>
       <ol>
-        <li contenteditable="true">落实<strong>市财政出资</strong>，纳入年度预算</li>
-        <li contenteditable="true"><strong>国有资本</strong>核心出资到位，分批实缴</li>
-        <li contenteditable="true">对接<strong>国家大基金</strong>（国家集成电路基金、中国政企合作基金等）</li>
-        <li contenteditable="true"><strong>金融机构配资</strong>（银行、保险、信托等机构投资者）</li>
-        <li contenteditable="true"><strong>外部资本引入</strong>（产业资本、上市公司等战略投资者）</li>
+        <li>落实<strong>市财政出资</strong>，纳入年度预算</li>
+        <li><strong>国有资本</strong>核心出资到位，分批实缴</li>
+        <li>对接<strong>国家大基金</strong>（国家集成电路基金、中国政企合作基金等）</li>
+        <li><strong>金融机构配资</strong>（银行、保险、信托等机构投资者）</li>
+        <li><strong>外部资本引入</strong>（产业资本、上市公司等战略投资者）</li>
       </ol>
     </div>
     <div class="phase-card">
-      <h3><span class="phase-tag">第三阶段</span> <span contenteditable="true">制度建设（2026 Q4）</span></h3>
+      <h3><span class="phase-tag">第三阶段</span> <span>制度建设（2026 Q4）</span></h3>
       <ol>
-        <li contenteditable="true">建立<strong>投资决策制度</strong></li>
-        <li contenteditable="true">建立<strong>风控管理制度</strong></li>
-        <li contenteditable="true">建立<strong>项目管理制度</strong></li>
-        <li contenteditable="true">建立<strong>绩效考核制度</strong></li>
-        <li contenteditable="true">建立<strong>前端基金衔接制度</strong></li>
+        <li>建立<strong>投资决策制度</strong></li>
+        <li>建立<strong>风控管理制度</strong></li>
+        <li>建立<strong>项目管理制度</strong></li>
+        <li>建立<strong>绩效考核制度</strong></li>
+        <li>建立<strong>前端基金衔接制度</strong></li>
       </ol>
     </div>
     <div class="phase-card">
-      <h3><span class="phase-tag">第四阶段</span> <span contenteditable="true">项目储备与投资运作（2026 Q3起）</span></h3>
+      <h3><span class="phase-tag">第四阶段</span> <span>项目储备与投资运作（2026 Q3起）</span></h3>
       <ol>
-        <li contenteditable="true">建立<strong>光电重大项目库</strong>（对接中国光电城、光机所、应化所、重点企业）</li>
-        <li contenteditable="true">梳理<strong>链主企业扩产需求</strong>（奥普光电、长光辰芯、长光卫星等）</li>
-        <li contenteditable="true">对接<strong>重点招商项目</strong>（头部光电企业落位长春资本金配套）</li>
-        <li contenteditable="true">首批<strong>子基金落地</strong>（光电芯片、激光、商业航天、新型半导体赛道）</li>
-        <li contenteditable="true">首批<strong>直投项目启动</strong>（≥5000万，优先链主企业 + 重点招商项目）</li>
-        <li contenteditable="true">定期评估：每年度评估投资进展、返投完成、产业带动效果</li>
+        <li>建立<strong>光电重大项目库</strong>（对接中国光电城、光机所、应化所、重点企业）</li>
+        <li>梳理<strong>链主企业扩产需求</strong>（奥普光电、长光辰芯、长光卫星等）</li>
+        <li>对接<strong>重点招商项目</strong>（头部光电企业落位长春资本金配套）</li>
+        <li>首批<strong>子基金落地</strong>（光电芯片、激光、商业航天、新型半导体赛道）</li>
+        <li>首批<strong>直投项目启动</strong>（≥5000万，优先链主企业 + 重点招商项目）</li>
+        <li>定期评估：每年度评估投资进展、返投完成、产业带动效果</li>
       </ol>
     </div>
   </div>
@@ -295,137 +266,67 @@
   <div class="card card-accent">
     <h2>
       <span class="tag tag-gold">保障措施</span>
-      <span contenteditable="true" style="font-size:15px">六大保障体系</span>
+      <span style="font-size:15px">六大保障体系</span>
     </h2>
   </div>
 
   <div class="guarantee-grid">
     <div class="guarantee-card">
-      <h3><span style="color:#1a73e8">●</span> <span contenteditable="true">组织保障</span></h3>
+      <h3><span style="color:#1a73e8">●</span> <span>组织保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>成立基金筹备工作领导小组</strong></li>
-        <li contenteditable="true"><strong>明确职责分工</strong>：财政局管出资、金融办管协调、天蚨基金管方案和管理、金控集团管监督</li>
-        <li contenteditable="true"><strong>定期调度机制</strong>，每月召开推进会</li>
+        <li><strong>成立基金筹备工作领导小组</strong></li>
+        <li><strong>明确职责分工</strong>：财政局管出资、金融办管协调、天蚨基金管方案和管理、金控集团管监督</li>
+        <li><strong>定期调度机制</strong>，每月召开推进会</li>
       </ul>
     </div>
     <div class="guarantee-card">
-      <h3><span style="color:#d4a054">●</span> <span contenteditable="true">资金保障</span></h3>
+      <h3><span style="color:#d4a054">●</span> <span>资金保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>财政资金优先保障</strong>，纳入年度预算</li>
-        <li contenteditable="true"><strong>国有资本持续注资</strong>，分批实缴避免闲置</li>
-        <li contenteditable="true"><strong>撬动社会资本</strong>，财政劣后+国有让利，撬动比 ≥ 1:3</li>
-        <li contenteditable="true"><strong>专户管理</strong>，资金隔离确保安全</li>
-        <li contenteditable="true"><strong>追加出资机制</strong>，根据进展适时增资</li>
+        <li><strong>财政资金优先保障</strong>，纳入年度预算</li>
+        <li><strong>国有资本持续注资</strong>，分批实缴避免闲置</li>
+        <li><strong>撬动社会资本</strong>，财政劣后+国有让利，撬动比 ≥ 1:3</li>
+        <li><strong>专户管理</strong>，资金隔离确保安全</li>
+        <li><strong>追加出资机制</strong>，根据进展适时增资</li>
       </ul>
     </div>
     <div class="guarantee-card">
-      <h3><span style="color:#137333">●</span> <span contenteditable="true">制度保障</span></h3>
+      <h3><span style="color:#137333">●</span> <span>制度保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>投决制度</strong>：投决会5–7人，重大投资2/3通过</li>
-        <li contenteditable="true"><strong>风控制度</strong>：单项目≤20%、止损线50%、关联交易禁止</li>
-        <li contenteditable="true"><strong>信息披露</strong>：季度报告，重大事项及时报告</li>
-        <li contenteditable="true"><strong>审计监督</strong>：年度第三方审计</li>
+        <li><strong>投决制度</strong>：投决会规则</li>
+        <li><strong>风控制度</strong>：出资方式、止损线、关联交易禁止等</li>
+        <li><strong>信息披露</strong>：季度报告，重大事项及时报告</li>
+        <li><strong>审计监督</strong>：年度第三方审计</li>
       </ul>
     </div>
     <div class="guarantee-card">
-      <h3><span style="color:#7c3aed">●</span> <span contenteditable="true">人才保障</span></h3>
+      <h3><span style="color:#7c3aed">●</span> <span>人才保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>组建专业投资团队</strong>，内部抽调 + 市场化招聘</li>
-        <li contenteditable="true"><strong>专家咨询机制</strong>，光电技术、产业经济、基金法律顾问</li>
-        <li contenteditable="true"><strong>绩效激励</strong>，与业绩挂钩，GP团队参与Carry分配</li>
+        <li><strong>组建专业投资团队</strong>，内部抽调 + 市场化招聘</li>
+        <li><strong>专家咨询机制</strong>，光电技术、产业经济、基金法律顾问</li>
+        <li><strong>绩效激励</strong>，与业绩挂钩，GP团队参与Carry分配</li>
       </ul>
     </div>
     <div class="guarantee-card">
-      <h3><span style="color:#c62828">●</span> <span contenteditable="true">政策保障</span></h3>
+      <h3><span style="color:#c62828">●</span> <span>政策保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>市级配套政策</strong>：土地、税收、人才专项支持</li>
-        <li contenteditable="true"><strong>省级政策对接</strong>：争取省级资金配套和政策倾斜</li>
-        <li contenteditable="true"><strong>国家级政策窗口</strong>：对接国家大基金，争取出资和项目合作</li>
+        <li><strong>市级配套政策</strong>：土地、税收、人才专项支持</li>
+        <li><strong>省级政策对接</strong>：争取省级资金配套和政策倾斜</li>
+        <li><strong>国家级政策窗口</strong>：对接国家大基金，争取出资和项目合作</li>
       </ul>
     </div>
     <div class="guarantee-card">
-      <h3><span style="color:#d4a054">●</span> <span contenteditable="true">协同保障</span></h3>
+      <h3><span style="color:#d4a054">●</span> <span>协同保障</span></h3>
       <ul>
-        <li contenteditable="true"><strong>前端衔接</strong>：与长兴基金项目推荐清单、接续投资优先权</li>
-        <li contenteditable="true"><strong>后端协同</strong>：与并购基金项目退出通道、产业整合协同</li>
-        <li contenteditable="true"><strong>政府信息共享</strong>：与科技局、工信局、商务局联合招商</li>
-        <li contenteditable="true"><strong>光电城对接</strong>：项目落地、场地配套、政策配套联动</li>
+        <li><strong>前端衔接</strong>：与长兴基金项目推荐清单、接续投资优先权</li>
+        <li><strong>后端协同</strong>：与并购基金项目退出通道、产业整合协同</li>
+        <li><strong>政府信息共享</strong>：与科技局、工信局、商务局联合招商</li>
+        <li><strong>光电城对接</strong>：项目落地、场地配套、政策配套联动</li>
       </ul>
     </div>
   </div>
 
-  <div class="footer" contenteditable="true">
+  <div class="footer">
     吉林省天蚨股权投资基金有限公司 · 长春市金融控股集团 · 2026年5月
   </div>
 
-</div>
-
-<script>
-function checkPw() {
-  var pw = document.getElementById('pw').value;
-  if (pw === 'tfjj') {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('main').style.display = 'block';
-  } else {
-    document.getElementById('pw-err').style.display = 'block';
-    setTimeout(function(){ document.getElementById('pw-err').style.display = 'none'; }, 2000);
-  }
-}
-document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPw(); });
-
-function exportAll() {
-  var ed = document.getElementById('main');
-  var clone = ed.cloneNode(true);
-  // Remove topbar
-  var tb = clone.querySelector('.topbar');
-  if (tb) tb.remove();
-  // Remove contenteditable
-  clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
-  // Remove edit hover styles
-  var style = clone.querySelector('style');
-  // Get full HTML
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title>' +
-    document.querySelector('style').outerHTML +
-    '</head><body>' + clone.outerHTML + '</body></html>';
-  // Download as file
-  var blob = new Blob([html], {type:'text/html'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '五级基金方案-编辑版.html';
-  a.click();
-  showToast('✅ 文件已下载');
-}
-
-function copyAll() {
-  var ed = document.getElementById('main');
-  // Extract plain text from all sections
-  var sections = ed.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line');
-  var text = '关于加快构建五级基金体系\n长春市光电信息重大项目产业投资基金架构与实施路径\n\n';
-  sections.forEach(function(sec) {
-    var t = sec.innerText.trim();
-    if (t) text += t + '\n\n';
-  });
-  navigator.clipboard.writeText(text).then(function(){
-    showToast('✅ 已复制到剪贴板，可直接粘贴发给我');
-  }).catch(function(){
-    // Fallback
-    var ta = document.createElement('textarea');
-    ta.value = text; document.body.appendChild(ta);
-    ta.select(); document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('✅ 已复制到剪贴板');
-  });
-}
-
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.display = 'block';
-  setTimeout(function(){ t.style.display = 'none'; }, 2500);
-}
-</script>
-
-<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;display:none;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2)"></div>
-
-</body>
-</html>
+</div></body></html>
