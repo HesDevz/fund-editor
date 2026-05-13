@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五级基金方案编辑器</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+
+  /* Password Gate */
+  #gate {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+  #gate .box {
+    background: #fff; border-radius: 16px; padding: 48px; width: 380px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;
+  }
+  #gate h2 { margin-bottom: 8px; font-size: 22px; }
+  #gate p { color: #666; font-size: 14px; margin-bottom: 24px; }
+  #gate input {
+    width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px;
+    font-size: 16px; text-align: center; letter-spacing: 8px; outline: none;
+    transition: border-color 0.3s;
+  }
+  #gate input:focus { border-color: #667eea; }
+  #gate button {
+    width: 100%; padding: 14px; margin-top: 16px; background: #667eea; color: #fff;
+    border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: background 0.3s;
+  }
+  #gate button:hover { background: #5a6fd6; }
+  #gate .err { color: #e74c3c; font-size: 13px; margin-top: 10px; display: none; }
+
+  /* Editor */
+  #editor { display: none; }
+  .topbar {
+    background: #fff; border-bottom: 1px solid #e0e0e0; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topbar h1 { font-size: 18px; color: #333; }
+  .topbar .btns { display: flex; gap: 10px; }
+  .topbar button {
+    padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-export { background: #667eea; color: #fff; }
+  .btn-export:hover { background: #5a6fd6; }
+  .btn-copy { background: #27ae60; color: #fff; }
+  .btn-copy:hover { background: #219a52; }
+  .btn-clear { background: #f5f5f5; color: #666; }
+  .btn-clear:hover { background: #e0e0e0; }
+
+  .content { max-width: 900px; margin: 24px auto; padding: 0 20px 60px; }
+
+  .section {
+    background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section h2 {
+    font-size: 16px; color: #333; margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section h2 .badge {
+    background: #667eea; color: #fff; font-size: 11px; padding: 2px 8px;
+    border-radius: 4px; font-weight: 700;
+  }
+  .section h2 .badge.gold { background: #d4a054; }
+
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600; color: #555;
+    margin-bottom: 6px;
+  }
+  .field textarea {
+    width: 100%; padding: 12px; border: 1.5px solid #e0e0e0; border-radius: 8px;
+    font-size: 14px; line-height: 1.7; resize: vertical; outline: none;
+    font-family: inherit; transition: border-color 0.3s; min-height: 60px;
+    background: #fafafa;
+  }
+  .field textarea:focus { border-color: #667eea; background: #fff; }
+
+  /* Export area */
+  #export-area {
+    display: none; margin-top: 20px;
+  }
+  #export-area pre {
+    background: #1a1a2e; color: #e0e0e0; padding: 20px; border-radius: 10px;
+    font-size: 13px; line-height: 1.7; white-space: pre-wrap; word-break: break-all;
+    max-height: 500px; overflow-y: auto;
+  }
+  #toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #27ae60; color: #fff; padding: 12px 28px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; display: none; z-index: 999;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+
+<!-- Password Gate -->
+<div id="gate">
+  <div class="box">
+    <h2>🔐 五级基金方案编辑器</h2>
+    <p>请输入密码访问</p>
+    <input type="password" id="pw" placeholder="····" maxlength="10" autofocus>
+    <button onclick="checkPw()">进入</button>
+    <div class="err" id="pw-err">密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- Editor -->
+<div id="editor">
+  <div class="topbar">
+    <h1>📝 长春光电信息 · 五级基金体系方案编辑器</h1>
+    <div class="btns">
+      <button class="btn-clear" onclick="clearAll()">🗑️ 清空</button>
+      <button class="btn-export" onclick="exportAll()">📋 导出全文</button>
+      <button class="btn-copy" onclick="copyAll()">📑 复制到剪贴板</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 开头 -->
+    <div class="section">
+      <h2>📌 开头段（背景与任务来源）</h2>
+      <div class="field">
+        <textarea id="s0" rows="5">为落实长春市光电信息产业高质量发展座谈会要求，加快构建五级基金体系总体布局，按照长春金控集团任务分工，由天蚨基金牵头承担重大项目产业投资基金板块研究设计，专注服务光电信息领域重大产业化项目，与长兴基金、长发集团错位协同。方案充分借鉴武汉光谷、合肥高新区产业基金成熟经验，贴合我市光电产业发展实际。现将体系架构与实施路径报告如下：</textarea>
+      </div>
+    </div>
+
+    <!-- 一、体系架构定位 -->
+    <div class="section">
+      <h2><span class="badge gold">一</span> 体系架构定位</h2>
+      <div class="field">
+        <label>定位差异（政府引导 vs 国企投资）</label>
+        <textarea id="s1a" rows="8">重大项目产业投资基金是五级基金体系中承上启下、支撑落地的关键环节。政府引导基金聚焦前端，重点布局种子、概念验证、天使投资及科技成果转化领域，以发现项目、孵化项目为核心使命；与政府引导基金功能定位不同，天蚨基金作为国企投资基金，深度锚定长春市"3转4强7新"产业布局，聚焦光电信息等区域核心主导产业，以培育产业、落地产能为核心使命。在前端产业孵化基础上，重点承接重大产业项目落地投资，推动核心产业提质增效、产业链延链补链强链，培育做强本土龙头企业，切实履行国有基金服务地方实体经济、赋能核心产业集群高质量发展的职能使命。后端衔接产业整合并购基金，构建投早、投小、投成长、投重大、促整合的全生命周期闭环投资生态。</textarea>
+      </div>
+      <div class="field">
+        <label>运作架构（母基金+子基金+直投）</label>
+        <textarea id="s1b" rows="6">基金由金控集团主导市场化运作，定位为"市级光电信息产业专项母基金"，采用母基金+子基金+直投三位一体架构，聚焦重资产、强带动、高成长性重大产业化项目，以股权方式支持技术落地、产能扩张、链上配套与招商落地，服务中国光电城建设。与政府引导基金错位布局、协同联动，重点凸显市场化产业投资与重大项目落地攻坚核心功能。</textarea>
+      </div>
+    </div>
+
+    <!-- 二、基金核心架构设计 -->
+    <div class="section">
+      <h2><span class="badge gold">二</span> 基金核心架构设计</h2>
+      <div class="field">
+        <label>1. 基金规模</label>
+        <textarea id="s2a" rows="2">基金规模：总规模100亿元，分期实缴，满足重大项目资本金投入需求。</textarea>
+      </div>
+      <div class="field">
+        <label>2. 存续期限</label>
+        <textarea id="s2b" rows="2">存续期限：8+2年，匹配光电项目研发、中试、量产、达产全周期。</textarea>
+      </div>
+      <div class="field">
+        <label>3. 资金来源</label>
+        <textarea id="s2c" rows="3">资金来源：以市财政/国有资本为核心出资，争取对接国家级产业基金，撬动金融机构及社会资本协同配资。</textarea>
+      </div>
+      <div class="field">
+        <label>4. 母基金层</label>
+        <textarea id="s2d" rows="3">母基金层：统筹资金、遴选子基金、制定返投与风控规则，发挥国有资本统筹优势，强化与政府引导基金的分工协同与项目接续。</textarea>
+      </div>
+      <div class="field">
+        <label>5. 子基金层</label>
+        <textarea id="s2e" rows="2">子基金层：聚焦专业化，布局光电芯片、商业航天、新型半导体、人工智能等细分赛道。</textarea>
+      </div>
+      <div class="field">
+        <label>6. 直投层</label>
+        <textarea id="s2f" rows="4">直投层：专项支持5000万元以上市级重大产业化项目，重点支持奥普光电、长光辰芯、长光卫星等链主企业重大投资项目及重点招商项目，凸显国企基金"投重大、强龙头"的产业赋能定位。</textarea>
+      </div>
+      <div class="field">
+        <label>7. 风控与保障</label>
+        <textarea id="s2g" rows="2">参照合肥、武汉经验，基金实行尽职免责、强制银行托管与分级风险管控，保障资金规范安全运作。</textarea>
+      </div>
+    </div>
+
+    <!-- 三、实施路径 -->
+    <div class="section">
+      <h2><span class="badge gold">三</span> 实施路径</h2>
+      <div class="field">
+        <textarea id="s3" rows="10">1.完善基金设立方案，由天蚨基金担任管理人，完成备案与资金募集；
+2.建立光电重大项目库，对接中国光电城、科研院所、上市企业与长兴基金项目源；
+3.母基金分批落地子基金布局，同步启动重大项目直投；
+4.与长兴基金建立项目协同与接续投资机制，借鉴合肥、武汉经验，强化基金与招商、政策、园区一体化联动，明确政府引导基金育早期、产业基金投重大的差异化分工；
+5.争取财政政策支持，放大国有资本杠杆，强化返投导向，助力千亿级光电产业集群建设。</textarea>
+      </div>
+    </div>
+
+    <!-- 结尾 -->
+    <div class="section">
+      <h2>📌 结尾（总结）</h2>
+      <div class="field">
+        <textarea id="s4" rows="4">以长兴基金为前端政府引导，投早、投小、投硬科技、投长周期；以天蚨基金为中端国企主力，投重大项目、投大资产、投强龙头、投精赛道；以长发并购基金为后端整合，形成错位布局、接力投资、闭环支撑的长春五级基金矩阵，既实现政策导向，又保障市场效益，全力服务光电信息等支柱产业高质量发展。</textarea>
+      </div>
+    </div>
+
+    <!-- Export area -->
+    <div id="export-area">
+      <h2 style="margin-bottom:12px;font-size:16px;">📄 导出全文（可复制）</h2>
+      <pre id="export-text"></pre>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast">✅ 已复制到剪贴板</div>
+
+<script>
+function checkPw() {
+  const pw = document.getElementById('pw').value;
+  if (pw === 'tfjj') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('editor').style.display = 'block';
+  } else {
+    document.getElementById('pw-err').style.display = 'block';
+    setTimeout(() => document.getElementById('pw-err').style.display = 'none', 2000);
+  }
+}
+document.getElementById('pw').addEventListener('keydown', e => { if(e.key==='Enter') checkPw(); });
+
+function getVal(id) { return document.getElementById(id).value.trim(); }
+
+function exportAll() {
+  const parts = [
+    '关于加快构建五级基金体系\n长春市光电信息重大项目产业投资基金架构与实施路径\n',
+    getVal('s0'),
+    '\n一、体系架构定位\n',
+    getVal('s1a'),
+    '\n' + getVal('s1b'),
+    '\n二、基金核心架构设计\n',
+    '1.' + getVal('s2a'),
+    '2.' + getVal('s2b'),
+    '3.' + getVal('s2c'),
+    '4.' + getVal('s2d'),
+    '5.' + getVal('s2e'),
+    '6.' + getVal('s2f'),
+    '7.' + getVal('s2g'),
+    '\n三、实施路径\n',
+    getVal('s3'),
+    '\n' + getVal('s4')
+  ];
+  const text = parts.join('\n');
+  document.getElementById('export-text').textContent = text;
+  document.getElementById('export-area').style.display = 'block';
+  document.getElementById('export-area').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyAll() {
+  exportAll();
+  const text = document.getElementById('export-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('toast');
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 2000);
+  });
+}
+
+function clearAll() {
+  if (!confirm('确定清空所有内容？')) return;
+  ['s0','s1a','s1b','s2a','s2b','s2c','s2d','s2e','s2f','s2g','s3','s4'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('export-area').style.display = 'none';
+}
+</script>
+</body>
+</html>
