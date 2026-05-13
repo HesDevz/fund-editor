@@ -332,6 +332,8 @@
 
 </div>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+
 function checkPw() {
   var pw = document.getElementById('pw').value;
   if (pw === 'tfjj') {
@@ -365,5 +367,7 @@ function copyAll() {
 '; });
   navigator.clipboard.writeText(text).then(function(){ alert('已复制到剪贴板'); });
 }
+
+});
 </script>
 </body></html>
