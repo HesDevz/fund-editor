@@ -82,7 +82,8 @@
   .guarantee-card li::before { content:'•'; position:absolute; left:0; color:#bbb; }
   .guarantee-card li strong { color:#333; }
   .footer { text-align:center; margin-top:30px; font-size:11px; color:#bbb; letter-spacing:1px; }
-</style></head><body><div class="container" id="main" style="display: block;">
+</style></head><body>
+<div id="gate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#667eea,#764ba2);position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999"><div style="background:#fff;border-radius:16px;padding:48px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center"><h2 style="margin-bottom:8px;font-size:22px">🔐 五级基金架构图</h2><p style="color:#666;font-size:14px;margin-bottom:24px">请输入密码查看与编辑</p><input type="password" id="pw" placeholder="····" maxlength="10" style="width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:10px;font-size:16px;text-align:center;letter-spacing:8px;outline:none" autofocus><button onclick="checkPw()" style="width:100%;padding:14px;margin-top:16px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer">进入</button><div id="pw-err" style="color:#e74c3c;font-size:13px;margin-top:10px;display:none">密码错误</div></div></div><div class="container" id="main" style="display: block;">
 
   
 
@@ -329,4 +330,40 @@
     吉林省天蚨股权投资基金有限公司 · 长春市金融控股集团 · 2026年5月
   </div>
 
-</div></body></html>
+</div>
+<script>
+function checkPw() {
+  var pw = document.getElementById('pw').value;
+  if (pw === 'tfjj') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  } else {
+    document.getElementById('pw-err').style.display = 'block';
+    setTimeout(function(){ document.getElementById('pw-err').style.display = 'none'; }, 2000);
+  }
+}
+document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPw(); });
+function exportAll() {
+  var ed = document.getElementById('main');
+  var clone = ed.cloneNode(true);
+  var tb = clone.querySelector('[style]');
+  if (tb && tb.style.position === 'sticky') tb.remove();
+  clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+  var h = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>五级基金方案</title>' + document.querySelector('style').outerHTML + '</head><body>' + clone.outerHTML + '</body></html>';
+  var blob = new Blob([h], {type:'text/html'});
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '五级基金方案-编辑版.html'; a.click();
+}
+function copyAll() {
+  var ed = document.getElementById('main');
+  var secs = ed.querySelectorAll('.card, .level4-main, .phase-card, .guarantee-card, .summary-line');
+  var text = '关于加快构建五级基金体系
+长春市光电信息重大项目产业投资基金架构与实施路径
+
+';
+  secs.forEach(function(s){ var t = s.innerText.trim(); if(t) text += t + '
+
+'; });
+  navigator.clipboard.writeText(text).then(function(){ alert('已复制到剪贴板'); });
+}
+</script>
+</body></html>
