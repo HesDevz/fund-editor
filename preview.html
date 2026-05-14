@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>比例预览 - 3174×4186</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#1a1a2e; display:flex; flex-direction:column; align-items:center; padding:24px; font-family:system-ui; }
+  .info { color:#aaa; font-size:13px; margin-bottom:16px; text-align:center; }
+  .info span { color:#e8d5a8; font-weight:600; }
+  .frame-wrap {
+    /* 3174:4186 ≈ 0.7581 — scale to fit screen */
+    width: min(90vw, 3174px);
+    aspect-ratio: 3174 / 4186;
+    border: 3px solid #e8d5a8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .frame-wrap iframe {
+    width: 3174px;
+    height: 4186px;
+    border: none;
+    transform-origin: top left;
+    /* scale down to fit container */
+    transform: scale(calc(min(90vw, 3174px) / 3174));
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  /* when container is sized by aspect-ratio, iframe scales to fill it */
+  @supports (aspect-ratio: 1) {
+    .frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      transform: none;
+      position: relative;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="info">
+  原始尺寸 <span>3174 × 4186</px> · 比例 <span>0.758 : 1</span>（约 3:4） · 内容按原始像素渲染，缩放到屏幕大小查看
+</div>
+
+<div class="frame-wrap">
+  <iframe id="frame" src="index.html" sandbox="allow-same-origin allow-scripts"></iframe>
+</div>
+
+<script>
+// Auto-bypass the password gate inside the iframe
+const frame = document.getElementById('frame');
+frame.onload = function() {
+  try {
+    const doc = frame.contentDocument;
+    doc.getElementById('gate').style.display = 'none';
+    const main = doc.getElementById('main');
+    main.style.display = 'block';
+  } catch(e) {
+    console.log('cross-origin blocked, user must enter password');
+  }
+};
+</script>
+
+</body>
+</html>
