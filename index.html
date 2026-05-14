@@ -412,6 +412,126 @@ function copyAll() {
   secs.forEach(function(s){ var t = s.innerText.trim(); if(t) text += t + '\n\n'; });
   navigator.clipboard.writeText(text).then(function(){ alert('已复制到剪贴板'); });
 }
+
+// A3 Print Mode
+if (location.search.includes('a3')) {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('main').style.display = 'block';
+  document.body.style.cssText = 'margin:0;padding:0;background:#fff;';
+  var style = document.createElement('style');
+  style.textContent = `
+    .page {
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 24px 32px 16px !important;
+      width: 2480px;
+      display: flex;
+      flex-direction: column;
+    }
+    .page > .header { margin-bottom: 12px !important; }
+    .page > .header h1 { font-size: 32px !important; }
+    .page > .header .sub { font-size: 15px !important; }
+    .page > .flow { margin-bottom: 12px !important; padding: 12px 24px !important; }
+    .page > .flow .step { font-size: 15px !important; }
+    .page > .flow .arrow { font-size: 15px !important; }
+    .page > .flow .dot { width: 10px !important; height: 10px !important; }
+    .page > .flow .active .dot { width: 12px !important; height: 12px !important; }
+
+    .a3-main {
+      display: flex;
+      gap: 28px;
+    }
+    .a3-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .a3-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card { padding: 16px 20px !important; margin-bottom: 10px !important; border-radius: 10px !important; }
+    .card-title { font-size: 17px !important; }
+    .card-desc { font-size: 13px !important; }
+    .tag { font-size: 12px !important; padding: 3px 10px !important; }
+
+    .level-row { gap: 10px !important; }
+    .level-box { padding: 12px 14px !important; border-radius: 8px !important; }
+    .level-box .num { font-size: 10px !important; padding: 2px 8px !important; }
+    .level-box .name { font-size: 15px !important; }
+    .level-box .desc { font-size: 12px !important; }
+    .level-box .badge { font-size: 10px !important; padding: 2px 8px !important; }
+
+    .l4 { padding: 20px 24px !important; margin-bottom: 10px !important; border-radius: 12px !important; }
+    .l4 .badge { font-size: 12px !important; padding: 4px 14px !important; }
+    .l4 h2 { font-size: 21px !important; }
+    .l4 .sub { font-size: 13px !important; }
+    .l4-grid { gap: 10px !important; }
+    .l4-card { padding: 14px 16px !important; border-radius: 8px !important; }
+    .l4-card h3 { font-size: 14px !important; }
+    .l4-card li { font-size: 13px !important; line-height: 1.8 !important; }
+
+    .divider { font-size: 14px !important; margin: 10px 0 8px !important; letter-spacing: 3px !important; }
+
+    .phase-grid { gap: 10px !important; margin-bottom: 10px !important; }
+    .phase { padding: 14px 16px !important; border-radius: 10px !important; }
+    .phase h3 { font-size: 14px !important; }
+    .phase .ptag { font-size: 10px !important; padding: 2px 8px !important; }
+    .phase .intro { font-size: 12px !important; }
+    .phase li { font-size: 13px !important; line-height: 1.7 !important; }
+
+    .gua-grid { gap: 10px !important; }
+    .gua { padding: 14px 16px !important; border-radius: 10px !important; }
+    .gua h3 { font-size: 14px !important; }
+    .gua li { font-size: 13px !important; line-height: 1.7 !important; }
+
+    .footer { font-size: 12px !important; margin-top: 12px !important; padding-top: 12px !important; }
+  `;
+  document.head.appendChild(style);
+
+  setTimeout(function(){
+    var main = document.getElementById('main');
+    var children = Array.from(main.children);
+    var header = children[0];
+    var flow = children[1];
+    var l13 = children[2];
+    var l4 = children[3];
+    var l5 = children[4];
+    var divider = children[5];
+    var phaseHeader = children[6];
+    var phaseGrid = children[7];
+    var guaHeader = children[8];
+    var guaGrid = children[9];
+    var footer = children[10];
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'a3-main';
+    var leftCol = document.createElement('div');
+    leftCol.className = 'a3-left';
+    var rightCol = document.createElement('div');
+    rightCol.className = 'a3-right';
+
+    main.insertBefore(header, main.firstChild);
+    main.insertBefore(flow, header.nextSibling);
+    leftCol.appendChild(l13);
+    leftCol.appendChild(l4);
+    rightCol.appendChild(l5);
+    rightCol.appendChild(divider);
+    rightCol.appendChild(phaseHeader);
+    rightCol.appendChild(phaseGrid);
+    rightCol.appendChild(guaHeader);
+    rightCol.appendChild(guaGrid);
+    rightCol.appendChild(footer);
+
+    wrapper.appendChild(leftCol);
+    wrapper.appendChild(rightCol);
+    main.appendChild(wrapper);
+
+    enableEdit();
+  }, 100);
+}
 </script>
 </body>
 </html>
